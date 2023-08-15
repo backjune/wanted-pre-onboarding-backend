@@ -30,30 +30,40 @@ board 테이블은 id(pk), content(게시글), created(게시글 만들어진 �
 
 **회원가입**
 * **URL**
-  /signup
+  /signup  
 
 * **Method:**
-
   `POST`
   
-*  **URL Params**
-      None
-
 * **Data Params**
   email, password
 
 * **Success Response:**
-
   * **Code:** 201 <br />
-    **Content:** `None`
- 
+
 * **Error Response:**
 
-  * **Code:** 400 NOT FOUND <br />
-    **Content:** `{ error : "User doesn't exist" }`
+  * **Code:** 400 BAD Request <br />
+    **Contents:** `{email: "이메일은 @ 기호를 포함해야 합니다." }`
+    `{email: "user with this email already exists."}`<br />
+    `{password: ["비밀번호는 8글자 이상이어야 합니다." }`
 
-  OR
+**로그인**
+* **URL**
+  /signin  
 
-  * **Code:** 400 UNAUTHORIZED <br />
-    **Content:** `{ error : "You are unauthorized to make this request." }`
+* **Method:**
+  `POST`
+  
+* **Data Params**
+  email, password
 
+* **Success Response:**
+  * **Code:** 200 <br />
+    **Contents:** `{email: "이메일은 @ 기호를 포함해야 합니다." }`
+* **Error Response:**
+
+  * **Code:** 400 BAD Request <br />
+    **Contents:** `{email: "이메일은 @ 기호를 포함해야 합니다." }`
+    `{email: "user with this email already exists."}`<br />
+    `{password: ["비밀번호는 8글자 이상이어야 합니다." }`
