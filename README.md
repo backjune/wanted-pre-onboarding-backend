@@ -4,12 +4,13 @@
 * git clone https://github.com/backjune/wanted-pre-onboarding-backend.git <br />
 * cd wanted-pre-onboarding-backend <br />
 * pip install -r requirements.txt <br />
-* project/settings.py 열어서 DATABASES값을 아래와 같이 로컬DB 환경에 맞게 수정합니다. <br />
+* DB 생성
+* project/settings.py 열어서 위에서 만든 DB에 맞게 DATABASES값을 수정합니다. <br />
 ```
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'xxx', 
+        'NAME': 'xxx',  # DB이름 입력
         'USER': 'root',
         'PASSWORD': '1234',
         'HOST': 'localhost',
