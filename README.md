@@ -1,5 +1,5 @@
-지원자 백준형입니다<br />
-
+지원자 백준형입니다<br /><br />
+**데모영상링크입니다 : https://youtu.be/kz5zGXfpRPo** <br /> <br />
 **실행 방법**
 * git clone https://github.com/backjune/wanted-pre-onboarding-backend.git <br />
 * cd wanted-pre-onboarding-backend <br />
@@ -204,4 +204,4 @@ curl -d "email=test@naver.com&password=12345678" -H "Content-Type: application/x
 * user 테이블은 id(pk), email, password 로 구성되고
 * board 테이블은 id(pk), content(게시글), created(게시글 만들어진 시간), owner_id(fk, 작성자 id) 로 구성됩니다.
 
-데모영상링크입니다 : 
+
