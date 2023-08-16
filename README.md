@@ -23,12 +23,15 @@ DATABASES = {
 * python manage.py migrate board <br />
 * python manage.py runserver <br />
 
-* 아래와 같이 원하는 엔드포인트 호출합니다.
+* curl 사용시 아래와 같이 원하는 엔드포인트 호출합니다.
 ```
 curl -d "email=test@naver.com&password=12345678" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://127.0.0.1:8000/user/signup
 ```
-**API 명세**
+* 다른 툴 사용 시 Request 할 때 http://127.0.0.1:8000에 추가로 아래 API 명세에 맞게 입력해주시면 됩니다.<br />
 
+
+
+**API 명세**<br /><br />
 **회원가입**
 * **URL**
   /user/signup  
@@ -206,3 +209,8 @@ curl -d "email=test@naver.com&password=12345678" -H "Content-Type: application/x
 * board 테이블은 id(pk), content(게시글), created(게시글 만들어진 시간), owner_id(fk, 작성자 id) 로 구성됩니다.
 
 
+**구현 방법 및 이유** 
+* urls.py 파일을 이용 API 엔드포인트를 해당 views.py와 연결
+* views.py 파일에서는 클라이언트 요청 처리 및 models.py와 연결
+* models.py 파일에서는 DB와 매핑되는 클래스 정의합니다.
+* Django 공식홈페이지 튜토리얼이 위와 같은 방식으로 구현하였길래 참고하여 구현했습니다.
