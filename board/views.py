@@ -22,10 +22,16 @@ class BoardList(generics.ListAPIView):
 class BoardCreate(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         user_id = request.data.get('user_id')
+        content = request.data.get('content')
+
         try:
             user = User.objects.get(id=user_id)
         except User.DoesNotExist:
-            return Response({'error': '해당하는 유저가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'No user found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        if content is None:
+            return Response({'error': 'Please enter the content.'},
+                            status=status.HTTP_400_BAD_REQUEST)
 
         Board.objects.create(owner=user, content=request.data.get('content'))
         return Response(status=status.HTTP_201_CREATED)
@@ -37,20 +43,27 @@ class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
-        user_id = int(request.data.get('user_id'))
+        try:
+            user_id = int(request.data.get('user_id'))
+        except:
+            return Response({'user_id': 'user_id may not be blank.'}, status=status.HTTP_404_NOT_FOUND)
+
         board_owner_id = instance.owner.id
 
         if user_id == board_owner_id:
             return super().update(request, *args, **kwargs)
 
         return Response(
-            {"error": "작성자만 수정 할 수 있습니다."},
+            {"error": "Only the author can make modifications."},
             status=status.HTTP_401_UNAUTHORIZED
         )
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
-        user_id = int(request.data.get('user_id'))
+        try:
+            user_id = int(request.data.get('user_id'))
+        except:
+            return Response({'user_id': 'user_id may not be blank.'}, status=status.HTTP_404_NOT_FOUND)
         board_owner_id = instance.owner.id
 
         if user_id == board_owner_id:
@@ -58,6 +71,6 @@ class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(
-            {"error": "작성자만 삭제 할 수 있습니다."},
+            {"error": "Only the author can delete."},
             status=status.HTTP_401_UNAUTHORIZED
         )
